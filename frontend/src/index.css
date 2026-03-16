@@ -37,18 +37,25 @@ html {
 
 body {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background: var(--color-chat-bg);
-  color: var(--color-text-primary);
+  background: #181818;
+  color: white;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
+  padding: 12px;
 }
 
 /* ── Utilities ──────────────────────────────── */
 
 .card {
-  background: var(--color-chat-sidebar);
-  border: 1px solid var(--color-chat-border);
-  border-radius: 12px;
+  background: #212121;
+  border: 1px solid #303030;
+  border-radius: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 /* ── Scrollbar ────────────────────────────────────────────── */

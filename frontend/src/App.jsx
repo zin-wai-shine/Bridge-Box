@@ -23,17 +23,15 @@ export default function App() {
   }, [fetchBridges, fetchStats]);
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-chat-bg">
+    <div className="h-full flex flex-col bg-[#212121] rounded-[2rem] border border-chat-border shadow-[0_40px_100px_rgba(0,0,0,0.5)] overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
 
       {/* Header */}
       <Header />
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden relative z-10">
-        {/* Sidebar */}
         <Sidebar />
-
-        {/* Command Center */}
         <CommandCenter />
       </div>
 
