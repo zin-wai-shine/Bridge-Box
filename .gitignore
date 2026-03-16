@@ -1,0 +1,24 @@
+.DS_Store
+.env
+.env.*
+
+# Backend (Go)
+backend/bribox-api
+backend/bin/
+backend/tmp/
+backend/*.exe
+backend/*.exe~
+backend/*.dll
+backend/*.so
+backend/*.dylib
+
+# Frontend (Node/Vite)
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+frontend/.npm/
+
+# DB Data
+pgdata/
+redisdata/
