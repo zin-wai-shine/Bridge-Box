@@ -32,59 +32,68 @@ export function CreateBridgeModal() {
   };
 
   return (
-    <ModalWrapper onClose={() => setCreateModalOpen(false)} title="Create New Bridge">
-      <form onSubmit={handleSubmit} className="space-y-6 mt-2">
-        {/* Source A — Client */}
-        <div className="space-y-3">
-          <label className="text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-2">
-            <span>👤</span> Client Source
-          </label>
-          <input
-            type="text"
-            value={form.source_a_name}
-            onChange={(e) => setForm({ ...form, source_a_name: e.target.value })}
-            placeholder="Client name (e.g. John Doe)"
-            className="w-full bg-chat-bg border border-chat-border rounded-lg px-4 py-3 text-sm text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all placeholder-text-muted/50"
-          />
-          <PlatformSelect
-            value={form.source_a_platform}
-            onChange={(val) => setForm({ ...form, source_a_platform: val })}
-          />
-        </div>
-
-        {/* Bridge Arrow */}
-        <div className="flex justify-center -my-2 relative z-10">
-          <div className="w-8 h-8 rounded-full bg-chat-sidebar border border-chat-border flex items-center justify-center text-text-muted shadow-sm">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-            </svg>
+    <ModalWrapper onClose={() => setCreateModalOpen(false)} title="Initialize Bridge">
+      <form onSubmit={handleSubmit} className="space-y-10">
+        <div className="space-y-8">
+          {/* Source A — Client */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between px-1">
+              <label className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-text-muted">
+                Sector A (Source)
+              </label>
+              <span className="text-[0.45rem] font-black text-white bg-white/10 px-2 py-0.5 rounded tracking-tighter shadow-sm">UPLINK_01</span>
+            </div>
+            <input
+              type="text"
+              value={form.source_a_name}
+              onChange={(e) => setForm({ ...form, source_a_name: e.target.value })}
+              placeholder="Source Name (e.g. Client Alpha)"
+              className="w-full bg-[#181818] border border-chat-border rounded-2xl px-6 py-5 text-sm text-white outline-none focus:border-white transition-all font-bold placeholder:text-text-muted/20 shadow-inner"
+            />
+            <PlatformSelect
+              value={form.source_a_platform}
+              onChange={(val) => setForm({ ...form, source_a_platform: val })}
+            />
           </div>
-        </div>
 
-        {/* Source B — Provider */}
-        <div className="space-y-3">
-          <label className="text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-2">
-            <span>🏢</span> Provider Source
-          </label>
-          <input
-            type="text"
-            value={form.source_b_name}
-            onChange={(e) => setForm({ ...form, source_b_name: e.target.value })}
-            placeholder="Provider name (e.g. Agency Team)"
-            className="w-full bg-chat-bg border border-chat-border rounded-lg px-4 py-3 text-sm text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all placeholder-text-muted/50"
-          />
-          <PlatformSelect
-            value={form.source_b_platform}
-            onChange={(val) => setForm({ ...form, source_b_platform: val })}
-          />
+          {/* Tactical Divider */}
+          <div className="flex items-center gap-6 px-1">
+            <div className="flex-1 h-[2px] bg-chat-border/50" />
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+              <span className="text-[0.5rem] font-black text-text-muted tracking-[0.4em] uppercase">Bridging Network</span>
+            </div>
+            <div className="flex-1 h-[2px] bg-chat-border/50" />
+          </div>
+
+          {/* Source B — Provider */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between px-1">
+              <label className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-text-muted">
+                Sector B (Dest)
+              </label>
+              <span className="text-[0.45rem] font-black text-white bg-white/10 px-2 py-0.5 rounded tracking-tighter shadow-sm">UPLINK_02</span>
+            </div>
+            <input
+              type="text"
+              value={form.source_b_name}
+              onChange={(e) => setForm({ ...form, source_b_name: e.target.value })}
+              placeholder="Target Name (e.g. Fulfillment Hub)"
+              className="w-full bg-[#181818] border border-chat-border rounded-2xl px-6 py-5 text-sm text-white outline-none focus:border-white transition-all font-bold placeholder:text-text-muted/20 shadow-inner"
+            />
+            <PlatformSelect
+              value={form.source_b_platform}
+              onChange={(val) => setForm({ ...form, source_b_platform: val })}
+            />
+          </div>
         </div>
 
         <button
           onClick={handleSubmit}
           disabled={loading || !form.source_a_name || !form.source_b_name}
-          className="w-full btn btn-primary py-3.5 mt-4 text-sm"
+          className="w-full btn btn-primary py-6 text-xs font-black uppercase tracking-[0.4em] shadow-[0_20px_40px_rgba(0,0,0,0.5)] active:scale-[0.98] mt-4"
         >
-          {loading ? 'Creating Bridge...' : 'Create Bridge'}
+          {loading ? 'DEPLOYING UPLINK...' : 'DEPLOY TACTICAL BRIDGE'}
         </button>
       </form>
     </ModalWrapper>
@@ -220,19 +229,24 @@ export function MagicLinkModal() {
 
 function ModalWrapper({ children, onClose, title }) {
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-6 animate-fade-in">
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose} />
-      <div className="relative w-full max-w-sm bg-chat-sidebar border border-chat-border p-8 rounded-[2rem] shadow-[0_0_50px_rgba(0,0,0,0.5)] animate-fade-in-up">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-[0.65rem] font-black uppercase tracking-[0.4em] text-white border-l-4 border-white pl-4 leading-none">{title}</h2>
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 animate-fade-in overflow-y-auto">
+      <div className="fixed inset-0 bg-black/90 backdrop-blur-xl" onClick={onClose} />
+      <div className="relative w-full max-w-lg bg-[#181818] border border-chat-border p-10 rounded-[2.5rem] shadow-[0_0_100px_rgba(0,0,0,0.8)] animate-fade-in-up my-auto">
+        <div className="flex items-center justify-between mb-10">
+          <div className="flex items-center gap-4">
+            <div className="w-1.5 h-6 bg-white rounded-full" />
+            <h2 className="text-[0.65rem] font-black uppercase tracking-[0.4em] text-white leading-none whitespace-nowrap">{title}</h2>
+          </div>
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-full flex items-center justify-center bg-chat-bg border border-chat-border hover:bg-white hover:text-[#181818] transition-all text-xs"
+            className="w-12 h-12 rounded-full flex items-center justify-center bg-chat-bg border border-chat-border hover:bg-white hover:text-[#181818] transition-all text-sm shadow-lg"
           >
             ✕
           </button>
         </div>
-        {children}
+        <div className="relative">
+          {children}
+        </div>
       </div>
     </div>
   );
