@@ -29,15 +29,15 @@ export default function ActionSniperBar() {
   return (
     <div className="w-16 lg:w-[240px] border-x border-chat-border bg-chat-sidebar flex flex-col">
       {/* Title */}
-      <div className="p-3 border-b border-chat-border text-center">
+      <div className="p-6 border-b border-chat-border">
         <div className="hidden lg:block">
-          <h3 className="text-[0.65rem] font-bold uppercase tracking-widest text-primary">
-            Action Sniper
+          <h3 className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-white">
+            Cockpit
           </h3>
-          <p className="text-[0.55rem] text-text-muted mt-0.5">Quick Commands</p>
+          <p className="text-[0.5rem] font-bold text-text-muted mt-1 uppercase tracking-widest leading-none">Command Center</p>
         </div>
-        <div className="lg:hidden">
-          <span className="text-lg">⚡</span>
+        <div className="lg:hidden flex justify-center">
+          <span className="text-xl">⚡</span>
         </div>
       </div>
 
@@ -77,28 +77,28 @@ export default function ActionSniperBar() {
       </div>
 
       {/* Action Sniper Buttons */}
-      <div className="flex-1 p-3 space-y-2 overflow-y-auto">
-        <p className="text-[0.55rem] font-semibold uppercase tracking-widest text-text-muted hidden lg:block mb-2">
-          Sniper Actions
+      <div className="flex-1 p-6 space-y-4 overflow-y-auto">
+        <p className="text-[0.55rem] font-bold uppercase tracking-[0.2em] text-text-muted hidden lg:block mb-1">
+          Tactical Actions
         </p>
 
         {/* Oracle Ping */}
         <div className="hidden lg:block">
           {showOracleInput ? (
-            <div className="space-y-2 animate-fade-in-up">
+            <div className="space-y-3 animate-fade-in-up">
               <textarea
                 value={oracleQuery}
                 onChange={(e) => setOracleQuery(e.target.value)}
                 placeholder="Availability query..."
-                className="w-full bg-chat-bg border border-chat-border rounded-lg px-3 py-2 text-xs
-                           text-text-primary outline-none resize-none h-16
-                           focus:border-primary transition-all"
+                className="w-full bg-chat-bg border border-chat-border rounded-lg px-3 py-3 text-xs
+                           text-text-primary outline-none resize-none h-20
+                           focus:border-primary transition-all font-medium"
               />
-              <div className="flex gap-1">
-                <button onClick={handleOraclePing} disabled={oracleLoading} className="flex-[3] btn btn-primary text-[0.6rem] py-2">
-                  PING
+              <div className="flex gap-2">
+                <button onClick={handleOraclePing} disabled={oracleLoading} className="flex-[3] btn btn-primary text-xs py-3">
+                  PING ORACLE
                 </button>
-                <button onClick={() => setShowOracleInput(false)} className="flex-1 btn btn-secondary text-[0.6rem] py-2">
+                <button onClick={() => setShowOracleInput(false)} className="flex-1 btn btn-secondary text-xs py-3">
                   ✕
                 </button>
               </div>
@@ -106,10 +106,10 @@ export default function ActionSniperBar() {
           ) : (
             <button
               onClick={() => setShowOracleInput(true)}
-              className="w-full btn btn-primary py-2"
+              className="w-full btn btn-primary py-3.5 text-xs tracking-widest uppercase font-bold"
               disabled={!activeBridge.oracle_enabled}
             >
-              <span className="text-lg disabled:opacity-50">🔔</span> Oracle Ping
+              🔔 Oracle Ping
             </button>
           )}
         </div>
@@ -157,9 +157,9 @@ export default function ActionSniperBar() {
       </div>
 
       {/* Bridge Code */}
-      <div className="p-3 border-t border-chat-border text-center">
-        <p className="text-[0.5rem] text-text-muted uppercase tracking-wider hidden lg:block">Bridge</p>
-        <p className="text-[0.65rem] font-mono font-bold text-primary">{activeBridge.bridge_code}</p>
+      <div className="p-6 border-t border-chat-border text-center">
+        <p className="text-[0.5rem] text-text-muted uppercase tracking-[0.3em] font-bold hidden lg:block mb-1">Sector ID</p>
+        <p className="text-[0.65rem] font-mono font-bold text-white tracking-tighter">{activeBridge.bridge_code}</p>
       </div>
     </div>
   );
@@ -182,8 +182,8 @@ function MiniAction({ icon, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="w-10 h-10 rounded-lg bg-chat-bg border border-chat-border flex items-center justify-center
-                 hover:bg-chat-hover transition-all text-base"
+      className="w-10 h-10 rounded-xl bg-chat-bg border border-chat-border flex items-center justify-center
+                 hover:bg-chat-hover hover:border-text-primary transition-all text-base"
     >
       {icon}
     </button>

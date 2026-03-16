@@ -33,20 +33,18 @@ export function CreateBridgeModal() {
 
   return (
     <ModalWrapper onClose={() => setCreateModalOpen(false)} title="Create New Bridge">
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-6 mt-2">
         {/* Source A — Client */}
-        {/* Source A — Client */}
-        <div className="card p-4 space-y-3">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-sm">👤</span>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-info">Source A — Client</h4>
-          </div>
+        <div className="space-y-3">
+          <label className="text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-2">
+            <span>👤</span> Client Source
+          </label>
           <input
             type="text"
             value={form.source_a_name}
             onChange={(e) => setForm({ ...form, source_a_name: e.target.value })}
-            placeholder="Client name..."
-            className="w-full bg-chat-bg border border-chat-border rounded-lg px-3 py-2 text-sm text-text-primary outline-none focus:border-primary transition-all"
+            placeholder="Client name (e.g. John Doe)"
+            className="w-full bg-chat-bg border border-chat-border rounded-lg px-4 py-3 text-sm text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all placeholder-text-muted/50"
           />
           <PlatformSelect
             value={form.source_a_platform}
@@ -55,24 +53,25 @@ export function CreateBridgeModal() {
         </div>
 
         {/* Bridge Arrow */}
-        <div className="flex justify-center">
-          <div className="w-10 h-10 rounded-full border border-primary bg-primary/10 flex items-center justify-center">
-            <span className="text-primary text-lg">⇅</span>
+        <div className="flex justify-center -my-2 relative z-10">
+          <div className="w-8 h-8 rounded-full bg-chat-sidebar border border-chat-border flex items-center justify-center text-text-muted shadow-sm">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+            </svg>
           </div>
         </div>
 
         {/* Source B — Provider */}
-        <div className="card p-4 space-y-3">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-sm">🏢</span>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-primary">Source B — Provider</h4>
-          </div>
+        <div className="space-y-3">
+          <label className="text-xs font-semibold uppercase tracking-wider text-text-muted flex items-center gap-2">
+            <span>🏢</span> Provider Source
+          </label>
           <input
             type="text"
             value={form.source_b_name}
             onChange={(e) => setForm({ ...form, source_b_name: e.target.value })}
-            placeholder="Provider name..."
-            className="w-full bg-chat-bg border border-chat-border rounded-lg px-3 py-2 text-sm text-text-primary outline-none focus:border-primary transition-all"
+            placeholder="Provider name (e.g. Agency Team)"
+            className="w-full bg-chat-bg border border-chat-border rounded-lg px-4 py-3 text-sm text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all placeholder-text-muted/50"
           />
           <PlatformSelect
             value={form.source_b_platform}
@@ -83,9 +82,9 @@ export function CreateBridgeModal() {
         <button
           onClick={handleSubmit}
           disabled={loading || !form.source_a_name || !form.source_b_name}
-          className="w-full btn btn-primary py-3"
+          className="w-full btn btn-primary py-3.5 mt-4 text-sm"
         >
-          <span className="text-lg">🌉</span> {loading ? 'Creating...' : 'Create Bridge'}
+          {loading ? 'Creating Bridge...' : 'Create Bridge'}
         </button>
       </form>
     </ModalWrapper>
@@ -107,36 +106,36 @@ export function MediaSniperModal() {
   };
 
   return (
-    <ModalWrapper onClose={() => setMediaModalOpen(false)} title="AI Media Sniper">
-      <div className="space-y-4">
-        <p className="text-xs text-text-secondary">
-          One-click media processing pipeline. Paste a URL to automatically upscale, remove watermarks, and strip metadata.
+    <ModalWrapper onClose={() => setMediaModalOpen(false)} title="Media Sniper">
+      <div className="space-y-6">
+        <p className="text-[0.65rem] text-text-muted font-bold tracking-widest uppercase">
+          AI-Powered media optimization pipeline. Paste URL to refine.
         </p>
 
         <input
           type="url"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          placeholder="Paste image/media URL..."
-          className="w-full bg-chat-bg border border-chat-border rounded-lg px-3 py-2 text-sm text-text-primary outline-none focus:border-primary transition-all"
+          placeholder="Media Source URL..."
+          className="w-full bg-chat-bg border border-chat-border rounded-xl px-4 py-3.5 text-sm text-text-primary outline-none focus:border-white focus:ring-1 focus:ring-white/20 transition-all font-medium placeholder:text-text-muted/30"
         />
 
         <div className="space-y-3">
           <OptionToggle
-            label="📐 Upscale to 4K"
-            description="Increase resolution for HD output"
+            label="4K UPSCALING"
+            description="Neural resolution enhancement"
             active={options.upscale}
             onChange={() => setOptions({ ...options, upscale: !options.upscale })}
           />
           <OptionToggle
-            label="🎨 Watermark Removal"
-            description="AI inpainting to remove logos & contact info"
+            label="WATERMARK STRIP"
+            description="AI inpainting removal"
             active={options.deWatermark}
             onChange={() => setOptions({ ...options, deWatermark: !options.deWatermark })}
           />
           <OptionToggle
-            label="🧹 Metadata Cleaning"
-            description="Strip EXIF, GPS, and sensitive data"
+            label="METADATA SCRUB"
+            description="EXIF/GPS data sanitization"
             active={options.cleanMeta}
             onChange={() => setOptions({ ...options, cleanMeta: !options.cleanMeta })}
           />
@@ -145,9 +144,9 @@ export function MediaSniperModal() {
         <button
           onClick={handleProcess}
           disabled={loading || !url.trim()}
-          className="w-full btn btn-primary py-3"
+          className="w-full btn btn-primary py-4 mt-2"
         >
-          <span className="text-lg">⚡</span> {mediaProcessing ? 'Processing' : 'Process Media'}
+          {mediaProcessing ? 'Analyzing...' : 'PROCESS TACTICAL MEDIA'}
         </button>
       </div>
     </ModalWrapper>
@@ -170,46 +169,45 @@ export function MagicLinkModal() {
   };
 
   return (
-    <ModalWrapper onClose={() => { setMagicLinkModalOpen(false); setResult(null); }} title="Magic Link Connector">
-      <div className="space-y-4">
-        <p className="text-xs text-text-secondary">
-          Generate a secure UUID URL that tunnels external party data into your Bribox dashboard.
-          Zero app installation required.
+    <ModalWrapper onClose={() => { setMagicLinkModalOpen(false); setResult(null); }} title="Link Connector">
+      <div className="space-y-6">
+        <p className="text-[0.65rem] text-text-muted font-bold tracking-widest uppercase">
+          Generate UUID tunnel to route external data into dashboard.
         </p>
 
         {!result ? (
           <>
             <PlatformSelect value={platform} onChange={setPlatform} />
 
-            <div className="card p-3 space-y-2">
-              <div className="flex justify-between text-xs">
-                <span className="text-text-muted">Max Uses</span>
-                <span className="text-text-primary">5</span>
+            <div className="bg-chat-bg border border-chat-border rounded-xl p-4 space-y-3">
+              <div className="flex justify-between text-[0.6rem] font-bold uppercase tracking-widest text-text-muted">
+                <span>Max Capacity</span>
+                <span className="text-white">5 USES</span>
               </div>
-              <div className="flex justify-between text-xs">
-                <span className="text-text-muted">Expires</span>
-                <span className="text-text-primary">7 days</span>
+              <div className="flex justify-between text-[0.6rem] font-bold uppercase tracking-widest text-text-muted">
+                <span>TTL Expiry</span>
+                <span className="text-white">168 HOURS</span>
               </div>
             </div>
 
-            <button onClick={handleGenerate} disabled={loading} className="w-full btn btn-primary py-3">
-              <span className="text-lg">🔗</span> {loading ? 'Generating...' : 'Generate Link'}
+            <button onClick={handleGenerate} disabled={loading} className="w-full btn btn-primary py-4 mt-2">
+              {loading ? 'Generating...' : 'GENERATE ACCESS LINK'}
             </button>
           </>
         ) : (
-          <div className="animate-fade-in-up space-y-3">
-            <div className="card p-4 text-center">
-              <span className="text-3xl mb-2 block">✅</span>
-              <p className="text-sm font-semibold text-primary mb-2">Link Generated!</p>
-              <div className="bg-chat-sidebar rounded-lg p-3 break-all">
-                <code className="text-xs text-primary">{result.url}</code>
+          <div className="animate-fade-in-up space-y-4">
+            <div className="bg-chat-bg border border-chat-border rounded-xl p-6 text-center shadow-inner">
+              <span className="text-4xl mb-3 block">🔗</span>
+              <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-white underline decoration-white/20 underline-offset-4 decoration-2">Link Generated</p>
+              <div className="bg-chat-sidebar border border-chat-border rounded-lg p-4 mt-4 break-all shadow-lg">
+                <code className="text-[0.65rem] font-mono font-bold text-white selection:bg-white selection:text-[#181818]">{result.url}</code>
               </div>
             </div>
             <button
               onClick={() => { navigator.clipboard.writeText(result.url); }}
-              className="w-full btn btn-secondary"
+              className="w-full btn btn-primary py-4 text-xs font-bold uppercase tracking-widest"
             >
-              <span className="text-lg">📋</span> Copy to Clipboard
+              Copy to Clipboard
             </button>
           </div>
         )}
@@ -222,14 +220,14 @@ export function MagicLinkModal() {
 
 function ModalWrapper({ children, onClose, title }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="relative w-full max-w-md card p-6 animate-fade-in-up">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-base font-bold text-text-primary">{title}</h2>
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-6 animate-fade-in">
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose} />
+      <div className="relative w-full max-w-sm bg-chat-sidebar border border-chat-border p-8 rounded-[2rem] shadow-[0_0_50px_rgba(0,0,0,0.5)] animate-fade-in-up">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-[0.65rem] font-black uppercase tracking-[0.4em] text-white border-l-4 border-white pl-4 leading-none">{title}</h2>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-chat-hover transition-colors text-text-muted"
+            className="w-10 h-10 rounded-full flex items-center justify-center bg-chat-bg border border-chat-border hover:bg-white hover:text-[#181818] transition-all text-xs"
           >
             ✕
           </button>
@@ -242,20 +240,20 @@ function ModalWrapper({ children, onClose, title }) {
 
 function PlatformSelect({ value, onChange }) {
   return (
-    <div className="grid grid-cols-4 gap-2">
+    <div className="grid grid-cols-4 gap-3">
       {PLATFORMS.map((p) => (
         <button
           key={p.value}
           type="button"
           onClick={() => onChange(p.value)}
-          className={`py-2 px-1 rounded-lg text-center transition-all
+          className={`h-16 rounded-xl text-center transition-all flex flex-col items-center justify-center gap-1.5 border
             ${value === p.value
-              ? 'bg-primary/20 border border-primary/30 text-primary'
-              : 'bg-chat-bg border border-chat-border text-text-muted hover:bg-chat-hover'
+              ? 'bg-white border-white text-[#181818] shadow-2xl scale-[1.02]'
+              : 'bg-chat-bg border-chat-border text-text-muted hover:border-white/40 hover:text-white'
             }`}
         >
-          <span className="text-lg block">{p.icon}</span>
-          <span className="text-[0.55rem] font-medium mt-1 block">{p.label}</span>
+          <span className="text-xl leading-none">{p.icon}</span>
+          <span className="text-[0.45rem] font-black uppercase tracking-widest leading-none">{p.label}</span>
         </button>
       ))}
     </div>
@@ -266,19 +264,19 @@ function OptionToggle({ label, description, active, onChange }) {
   return (
     <button
       onClick={onChange}
-      className={`w-full text-left p-3 rounded-xl transition-all flex items-center justify-between border
+      className={`w-full text-left p-4 rounded-2xl transition-all flex items-center justify-between border group
         ${active
-          ? 'bg-primary/10 border-primary/20'
-          : 'bg-chat-bg border-chat-border'
+          ? 'bg-white/5 border-white shadow-lg'
+          : 'bg-chat-bg border-chat-border hover:border-white/30'
         }`}
     >
       <div>
-        <p className="text-xs font-semibold text-text-primary">{label}</p>
-        <p className="text-[0.6rem] text-text-muted mt-0.5">{description}</p>
+        <p className="text-[0.6rem] font-black uppercase tracking-widest text-white">{label}</p>
+        <p className="text-[0.55rem] text-text-muted font-medium mt-1 leading-none">{description}</p>
       </div>
-      <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all
-        ${active ? 'border-primary bg-primary' : 'border-chat-border'}`}>
-        {active && <span className="text-white text-[0.5rem]">✓</span>}
+      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all
+        ${active ? 'border-white bg-white' : 'border-chat-border group-hover:border-white/50'}`}>
+        {active && <span className="text-[#181818] text-[0.6rem] font-black">✓</span>}
       </div>
     </button>
   );

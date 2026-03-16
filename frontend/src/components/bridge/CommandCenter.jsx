@@ -9,14 +9,14 @@ export default function CommandCenter() {
 
   if (!activeBridge) {
     return (
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center p-8">
         <EmptyState
-          icon="🎯"
-          title="Select a Bridge"
-          description="Choose a bridge from the sidebar to open the dual-pane command center, or create a new one."
+          icon="🌑"
+          title="Command Uplink Required"
+          description="Select a bridge from the tactical sidebar or initialize a new link to begin operation."
           action={
-            <button onClick={() => setCreateModalOpen(true)} className="btn btn-primary mt-4">
-              <span>⚡</span> Create Bridge
+            <button onClick={() => setCreateModalOpen(true)} className="btn btn-primary mt-6 py-3.5 text-xs font-bold uppercase tracking-[0.2em]">
+              Initialize New Bridge
             </button>
           }
         />
@@ -31,23 +31,23 @@ export default function CommandCenter() {
         <div className="flex">
           <button
             onClick={() => setMobilePane('client')}
-            className={`flex-1 py-3 text-xs font-semibold uppercase tracking-wider transition-all
+            className={`flex-1 py-4 text-[0.6rem] font-black uppercase tracking-[0.2em] transition-all
               ${mobilePane === 'client'
-                ? 'text-primary border-b-2 border-primary bg-primary/5'
+                ? 'text-white border-b-2 border-white bg-white/5'
                 : 'text-text-muted hover:text-text-secondary'
               }`}
           >
-            👤 Client — {activeBridge.source_a_name}
+            Client {activeBridge.source_a_name}
           </button>
           <button
             onClick={() => setMobilePane('provider')}
-            className={`flex-1 py-3 text-xs font-semibold uppercase tracking-wider transition-all
+            className={`flex-1 py-4 text-[0.6rem] font-black uppercase tracking-[0.2em] transition-all
               ${mobilePane === 'provider'
-                ? 'text-primary border-b-2 border-primary bg-primary/5'
+                ? 'text-white border-b-2 border-white bg-white/5'
                 : 'text-text-muted hover:text-text-secondary'
               }`}
           >
-            🏢 Provider — {activeBridge.source_b_name}
+            Provider {activeBridge.source_b_name}
           </button>
         </div>
       </div>
@@ -108,10 +108,10 @@ export default function CommandCenter() {
 
 function MobileAction({ icon, label }) {
   return (
-    <button className="flex flex-col items-center gap-1 px-3 py-1.5 rounded-lg
-                       hover:bg-chat-hover transition-all">
-      <span className="text-lg">{icon}</span>
-      <span className="text-[0.55rem] text-text-muted">{label}</span>
+    <button className="flex flex-col items-center gap-1.5 px-3 py-2.5 rounded-xl
+                       hover:bg-chat-hover transition-all border border-transparent hover:border-chat-border">
+      <span className="text-xl">{icon}</span>
+      <span className="text-[0.45rem] text-text-muted font-black uppercase tracking-widest">{label}</span>
     </button>
   );
 }

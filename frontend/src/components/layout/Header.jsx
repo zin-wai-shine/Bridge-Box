@@ -6,7 +6,7 @@ export default function Header() {
   const { wsConnected, stats, sidebarOpen, setSidebarOpen } = useBriboxStore();
 
   return (
-    <header className="h-14 border-b border-chat-border bg-chat-bg flex items-center justify-between px-4 z-50 relative">
+    <header className="h-16 border-b border-chat-border bg-chat-sidebar flex items-center justify-between px-6 z-50 relative">
       {/* Left — Logo & Menu */}
       <div className="flex items-center gap-3">
         <button
@@ -19,24 +19,24 @@ export default function Header() {
           </svg>
         </button>
 
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-white font-black text-sm">B</span>
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-lg">
+            <span className="text-[#181818] font-black text-lg">B</span>
           </div>
-          <div>
-            <h1 className="text-sm font-bold tracking-tight">
-              Bribox<span className="text-primary">.io</span>
+          <div className="leading-tight">
+            <h1 className="text-sm font-bold tracking-tighter uppercase">
+              Bribox<span className="opacity-50">.io</span>
             </h1>
-            <p className="text-[0.6rem] text-text-muted -mt-0.5 hidden sm:block">Universal Master Controller</p>
+            <p className="text-[0.55rem] text-text-muted font-medium tracking-widest uppercase hidden sm:block">Universal Master Controller</p>
           </div>
         </div>
       </div>
 
       {/* Center — Quick Stats */}
-      <div className="hidden md:flex items-center gap-6">
+      <div className="hidden md:flex items-center gap-8">
         <QuickStat label="Bridges" value={stats?.stats?.total_bridges ?? 0} />
         <QuickStat label="Messages" value={stats?.stats?.total_messages ?? 0} />
-        <QuickStat label="Pending" value={stats?.stats?.pending_oracle ?? 0} accent />
+        <QuickStat label="Pending" value={stats?.stats?.pending_oracle ?? 0} />
       </div>
 
       {/* Right — Status */}
@@ -50,13 +50,13 @@ export default function Header() {
   );
 }
 
-function QuickStat({ label, value, accent = false }) {
+function QuickStat({ label, value }) {
   return (
-    <div className="text-center">
-      <p className={`text-sm font-bold ${accent ? 'text-primary' : 'text-text-primary'}`}>
+    <div className="flex flex-col items-center">
+      <p className="text-lg font-bold leading-none">
         {value}
       </p>
-      <p className="text-[0.6rem] text-text-muted uppercase tracking-wider">{label}</p>
+      <p className="text-[0.5rem] text-text-muted uppercase tracking-[0.2em] mt-1.5 font-bold">{label}</p>
     </div>
   );
 }

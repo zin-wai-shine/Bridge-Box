@@ -4,21 +4,21 @@
 
 @theme {
   --color-chat-bg: #212121;
-  --color-chat-sidebar: #171717;
-  --color-chat-border: #2f2f2f;
-  --color-chat-hover: #2f2f2f;
+  --color-chat-sidebar: #181818;
+  --color-chat-border: #303030;
+  --color-chat-hover: #303030;
   --color-chat-hover-sidebar: #212121;
   
-  --color-text-primary: #ececec;
-  --color-text-secondary: #b4b4b4;
-  --color-text-muted: #676767;
+  --color-text-primary: white;
+  --color-text-secondary: #ECECEC;
+  --color-text-muted: #ECECEC;
 
-  --color-primary: #10a37f;
-  --color-primary-hover: #1a7f64;
+  --color-primary: white;
+  --color-primary-hover: #ECECEC;
 
-  --color-danger: #ef4444;
-  --color-warning: #f59e0b;
-  --color-info: #3b82f6;
+  --color-danger: white;
+  --color-warning: white;
+  --color-info: white;
 }
 
 /* ── Base Styles ──────────────────────────────────────────── */
@@ -46,7 +46,7 @@ body {
 /* ── Utilities ──────────────────────────────── */
 
 .card {
-  background: var(--color-chat-bg);
+  background: var(--color-chat-sidebar);
   border: 1px solid var(--color-chat-border);
   border-radius: 12px;
 }
@@ -125,18 +125,23 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border-radius: 8px;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   border: 1px solid transparent;
+  outline: none;
+}
+
+.btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-chat-bg), 0 0 0 4px var(--color-primary);
 }
 
 .btn-primary {
   background: var(--color-primary);
-  color: white;
+  color: #181818;
 }
 .btn-primary:hover {
   background: var(--color-primary-hover);

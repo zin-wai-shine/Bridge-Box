@@ -17,11 +17,11 @@ const PLATFORM_LABELS = {
 };
 
 export function PlatformBadge({ platform, size = 'sm' }) {
-  const cls = size === 'lg' ? 'px-3 py-1.5 text-xs' : 'px-2 py-1 text-[0.65rem]';
+  const cls = size === 'lg' ? 'px-3 py-1.5 text-[0.6rem]' : 'px-2 py-0.5 text-[0.55rem]';
   return (
-    <span className={`platform-badge platform-${platform} ${cls}`}>
-      <span>{PLATFORM_ICONS[platform] || '🔌'}</span>
-      <span>{PLATFORM_LABELS[platform] || platform}</span>
+    <span className={`inline-flex items-center gap-1.5 rounded bg-white/5 border border-white/10 text-text-muted font-bold uppercase tracking-wider ${cls}`}>
+      <span className="opacity-80">{PLATFORM_ICONS[platform] || '🔌'}</span>
+      <span className="leading-none">{PLATFORM_LABELS[platform] || platform}</span>
     </span>
   );
 }
@@ -44,10 +44,10 @@ export function SmartToggle({ label, active, onChange, disabled = false }) {
 
 export function SniperButton({ children, onClick, icon, variant = 'primary', loading = false, disabled = false, className = '' }) {
   const variants = {
-    primary: 'sniper-btn',
-    danger: 'sniper-btn !bg-gradient-to-br !from-red-700 !to-red-600 !border-red-500/30',
-    ghost: 'sniper-btn !bg-transparent !border-glass-border hover:!bg-glass-hover',
-    info: 'sniper-btn !bg-gradient-to-br !from-blue-700 !to-blue-600 !border-blue-500/30',
+    primary: 'btn btn-primary',
+    danger: 'btn bg-chat-sidebar text-text-primary border border-chat-border',
+    ghost: 'btn btn-ghost',
+    info: 'btn btn-secondary',
   };
 
   return (
@@ -75,7 +75,7 @@ export function GlassCard({ children, className = '', glow = false, onClick }) {
   return (
     <div
       onClick={onClick}
-      className={`glass-card p-4 ${glow ? 'emerald-glow' : ''} ${onClick ? 'cursor-pointer glass-hover' : ''} ${className}`}
+      className={`card p-4 ${onClick ? 'cursor-pointer hover:bg-chat-hover' : ''} ${className}`}
     >
       {children}
     </div>
@@ -84,27 +84,32 @@ export function GlassCard({ children, className = '', glow = false, onClick }) {
 
 export function StatCard({ label, value, icon, trend }) {
   return (
-    <GlassCard className="animate-fade-in-up">
+    <div className="card p-6 animate-fade-in-up bg-[#181818] border-chat-border shadow-lg">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-text-muted text-xs font-medium uppercase tracking-wider">{label}</p>
-          <p className="text-2xl font-bold mt-1 emerald-text-glow">{value ?? '—'}</p>
+          <p className="text-text-muted text-[0.55rem] font-black uppercase tracking-[0.2em]">{label}</p>
+          <p className="text-3xl font-black mt-2 text-white tracking-tighter">{value ?? '—'}</p>
           {trend && (
-            <p className={`text-xs mt-1 ${trend > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-              {trend > 0 ? '↑' : '↓'} {Math.abs(trend)}%
-            </p>
+            <div className="flex items-center gap-1.5 mt-2">
+              <span className={`text-[0.6rem] font-bold px-1.5 py-0.5 rounded ${trend > 0 ? 'bg-white text-[#181818]' : 'bg-chat-border text-white'}`}>
+                {trend > 0 ? '+' : ''}{trend}%
+              </span>
+              <span className="text-[0.55rem] text-text-muted font-bold uppercase tracking-widest">Growth</span>
+            </div>
           )}
         </div>
-        <span className="text-2xl opacity-60">{icon}</span>
+        <div className="w-10 h-10 rounded-xl bg-chat-bg border border-chat-border flex items-center justify-center text-xl opacity-80 shadow-inner">
+          {icon}
+        </div>
       </div>
-    </GlassCard>
+    </div>
   );
 }
 
 export function ConnectionIndicator({ connected }) {
   return (
     <div className="flex items-center gap-2">
-      <div className={`w-2 h-2 rounded-full ${connected ? 'bg-emerald-500 animate-pulse-glow' : 'bg-red-500'}`} />
+      <div className={`w-2 h-2 rounded-full ${connected ? 'bg-primary' : 'bg-chat-border'}`} />
       <span className="text-xs text-text-muted">
         {connected ? 'Live' : 'Disconnected'}
       </span>
@@ -114,10 +119,12 @@ export function ConnectionIndicator({ connected }) {
 
 export function EmptyState({ icon, title, description, action }) {
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-6 text-center animate-fade-in-up">
-      <span className="text-5xl mb-4 opacity-40">{icon}</span>
-      <h3 className="text-lg font-semibold text-text-secondary mb-2">{title}</h3>
-      <p className="text-sm text-text-muted max-w-sm mb-6">{description}</p>
+    <div className="flex flex-col items-center justify-center p-12 text-center animate-fade-in-up">
+      <div className="w-20 h-20 rounded-[2rem] bg-chat-sidebar border border-chat-border flex items-center justify-center text-4xl mb-6 shadow-2xl">
+        {icon}
+      </div>
+      <h3 className="text-sm font-black text-white uppercase tracking-[0.3em] mb-2">{title}</h3>
+      <p className="text-xs text-text-muted font-medium max-w-[240px] leading-relaxed mb-8 opacity-60 uppercase tracking-wide">{description}</p>
       {action}
     </div>
   );
@@ -127,12 +134,12 @@ export function LoadingSkeleton({ count = 3 }) {
   return (
     <div className="space-y-3">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="glass-card p-4 animate-pulse" style={{ animationDelay: `${i * 150}ms` }}>
+        <div key={i} className="card p-4 animate-pulse" style={{ animationDelay: `${i * 150}ms` }}>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-obsidian-400/50" />
+            <div className="w-10 h-10 rounded-full bg-chat-border/50" />
             <div className="flex-1 space-y-2">
-              <div className="h-3 bg-obsidian-400/50 rounded w-3/4" />
-              <div className="h-2 bg-obsidian-400/30 rounded w-1/2" />
+              <div className="h-3 bg-chat-border/50 rounded w-3/4" />
+              <div className="h-2 bg-chat-border/30 rounded w-1/2" />
             </div>
           </div>
         </div>

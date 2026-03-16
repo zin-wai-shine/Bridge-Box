@@ -28,15 +28,15 @@ export default function MessagePane({ side, title, platformLabel }) {
   return (
     <div className="flex flex-col h-full">
       {/* Pane Header */}
-      <div className="px-4 py-3 border-b border-chat-border bg-chat-bg">
+      <div className="px-6 py-4 border-b border-chat-border bg-chat-sidebar">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-semibold text-text-primary">{title}</h3>
-            <p className="text-[0.6rem] text-text-muted uppercase tracking-wider">{platformLabel}</p>
+            <h3 className="text-sm font-bold text-white tracking-tight uppercase">{title}</h3>
+            <p className="text-[0.5rem] text-text-muted font-bold uppercase tracking-[0.2em] mt-1">{platformLabel}</p>
           </div>
           <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${side === 'client' ? 'bg-blue-400' : 'bg-primary'} animate-pulse`} />
-            <span className="text-[0.6rem] text-text-muted">{filteredMessages.length} msgs</span>
+            <div className={`w-1.5 h-1.5 rounded-full ${side === 'client' ? 'bg-primary' : 'bg-white'} animate-pulse`} />
+            <span className="text-[0.55rem] text-text-muted font-bold uppercase tracking-wider">{filteredMessages.length} Messages</span>
           </div>
         </div>
       </div>
@@ -56,25 +56,25 @@ export default function MessagePane({ side, title, platformLabel }) {
       </div>
 
       {/* Input Area */}
-      <form onSubmit={handleSend} className="p-3 border-t border-chat-border">
-        <div className="flex gap-2">
+      <form onSubmit={handleSend} className="p-4 border-t border-chat-border bg-chat-sidebar">
+        <div className="flex gap-3">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={`Send as ${side === 'client' ? 'Client' : 'Provider'}...`}
-            className="flex-1 bg-chat-bg border border-chat-border rounded-xl px-4 py-2.5 text-sm
-                       text-text-primary outline-none
-                       focus:border-primary transition-all"
+            placeholder={`Type a command...`}
+            className="flex-1 bg-chat-bg border border-chat-border rounded-xl px-5 py-3 text-sm
+                       text-text-primary outline-none font-medium
+                       focus:border-primary transition-all placeholder:text-text-muted/40"
           />
           <button
             type="submit"
             disabled={!input.trim()}
-            className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center
-                       hover:bg-primary-hover transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center
+                       hover:bg-primary-hover transition-all disabled:opacity-20 disabled:grayscale disabled:cursor-not-allowed shadow-lg"
           >
-            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            <svg className="w-5 h-5 text-[#181818]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
         </div>
@@ -94,19 +94,28 @@ function MessageBubble({ message, side, index }) {
       className={`flex ${side === 'client' ? 'justify-start' : 'justify-end'}`}
       style={{ animationDelay: `${index * 30}ms` }}
     >
-      <div className={`msg-bubble ${bubbleClass}`}>
+      <div className={`px-4 py-3 rounded-2xl max-w-[85%] text-sm font-medium border animate-fade-in-up shadow-sm
+        ${side === 'client' 
+          ? 'bg-chat-sidebar border-chat-border text-white rounded-bl-none' 
+          : 'bg-white border-white text-[#181818] rounded-br-none'
+        }`}>
         {message.msg_type === 'image' && message.media_url && (
-          <div className="mb-2 rounded-lg overflow-hidden">
-            <div className="w-full h-32 bg-chat-bg border border-chat-border flex items-center justify-center text-2xl">🖼️</div>
+          <div className="mb-2 rounded-lg overflow-hidden border border-chat-border/20">
+            <div className="w-full h-40 bg-chat-bg flex items-center justify-center text-3xl">🖼️</div>
           </div>
         )}
-        <p className="text-sm">{message.content || `[${message.msg_type} message]`}</p>
+        <p className="leading-relaxed">{message.content || `[${message.msg_type} command]`}</p>
+        
         {message.translated && (
-          <p className="text-xs text-primary mt-1 italic border-t border-chat-border pt-1">
-            🌐 {message.translated}
-          </p>
+          <div className={`mt-2 pt-2 border-t text-[0.7rem] italic opacity-80 flex items-start gap-2
+            ${side === 'client' ? 'border-chat-border text-white' : 'border-[#181818]/10 text-[#181818]'}`}>
+            <span>🌐</span> <span>{message.translated}</span>
+          </div>
         )}
-        <p className="text-[0.55rem] text-text-muted/60 mt-1 text-right">{time}</p>
+        
+        <p className={`text-[0.5rem] font-black uppercase tracking-tighter mt-1.5 flex items-center justify-end gap-1 opacity-40`}>
+          {time}
+        </p>
       </div>
     </div>
   );
