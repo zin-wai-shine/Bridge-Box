@@ -23,19 +23,19 @@ export default function App() {
   }, [fetchBridges, fetchStats]);
 
   return (
-    <div className="h-full flex flex-col bg-[#212121] rounded-[2rem] border border-chat-border shadow-[0_40px_100px_rgba(0,0,0,0.5)] overflow-hidden relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
+    <div className="h-full flex flex-col bg-[#121212] rounded-[2.5rem] border border-white/5 shadow-[0_0_100px_rgba(0,0,0,0.9)] overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
 
-      {/* Header */}
+      {/* Header Area */}
       <Header />
 
-      {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden relative z-10">
-        <Sidebar />
-        <CommandCenter />
-      </div>
+      {/* Core Operational Interface */}
+      <main className="flex-1 flex overflow-hidden relative z-10 w-full">
+        <Sidebar role="complementary" />
+        <CommandCenter role="main" />
+      </main>
 
-      {/* Modals */}
+      {/* Tactical Modals */}
       <CreateBridgeModal />
       <MediaSniperModal />
       <MagicLinkModal />
